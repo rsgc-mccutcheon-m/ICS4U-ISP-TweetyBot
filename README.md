@@ -70,7 +70,3 @@ Replace this with your paragraph(s).
 *In the section below, sketch out a plan for your application. This is where you will spend the majority of your time in completing the ISP proposal. Think through what you hope to create and as needed, adjust your responses to the questions above.*
 
 Replace this with your images and paragraphs.
-
-
-
-
