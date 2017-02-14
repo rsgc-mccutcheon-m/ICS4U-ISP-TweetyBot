@@ -69,4 +69,4 @@ As I stated above, I think the general lack of popularity of swift-based Twitter
 
 ### Make storyboards to indicate the user interface and/or functionality of your application.
 
-*In the section below, sketch out a plan for your application. This is where you will spend the majority of your time in completing the ISP proposal. Think through what you hope to create and as needed, adjust your responses to the questions above.*
+![Screen](
