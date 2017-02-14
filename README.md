@@ -69,4 +69,4 @@ As I stated above, I think the general lack of popularity of swift-based Twitter
 
 ### Make storyboards to indicate the user interface and/or functionality of your application.
 
-![Screen](
+My project will not use a GUI, as it does not take any user input, it just automatically tweets based on the source text.
