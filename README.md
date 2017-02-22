@@ -73,4 +73,7 @@ My twitter bot will rely heavily on data models derived using a Markov Chain. Th
 
 The below diagram shows what a three state chain might look like.
 
+![Markov Chain](https://raw.githubusercontent.com/rsgc-mccutcheon-m/ICS4U-ISP-TweetyBot/577ad27d8415db9afb444a20d8892edd27d53af9/CixTo.png)
+
+
 Note from Mr. Gordon: Could you take some time here to expand on your understanding of the Markov Chain algorithm and how you would implement it? Create an example or two and walk yourself and the reader through how the algorithm works. Imagine a reader who is not a computer scientist but wants to understand how your program will work at a technical level.
