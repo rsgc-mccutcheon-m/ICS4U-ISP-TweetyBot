@@ -15,10 +15,13 @@ class ViewController: NSViewController {
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
     var sourceText : [String] = []
    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        var markov : MarkovChain
+        
         // Do any additional setup after loading the view.
         
         guard let reader = FileReader(path:filePath ) else{
@@ -33,8 +36,15 @@ class ViewController: NSViewController {
             }
         }
         
-        print(sourceText)
-
+        //print(sourceText)
+        
+        markov = MarkovChain(words: sourceText)
+        
+        markov.genChain()
+        
+        print(markov.genTweet(length: 10))
+        
+        
     }
 
     override var representedObject: Any? {

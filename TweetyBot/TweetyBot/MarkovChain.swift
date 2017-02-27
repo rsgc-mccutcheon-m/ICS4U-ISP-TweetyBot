@@ -132,6 +132,7 @@ class MarkovChain {
                 
                 if output.characters.last != "." {
                     
+                    output.characters.popLast()
                     output += "."
                     
                 }
