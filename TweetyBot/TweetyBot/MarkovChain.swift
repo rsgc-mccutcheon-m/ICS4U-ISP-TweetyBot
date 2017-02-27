@@ -11,12 +11,14 @@ import Foundation
 class MarkovChain {
     
     var words : [String] = []
-    var suffix = [String : Int] = [:]
-    var prefix = [String: [String: Int]] = [:]
+    var suffix : [String : Int] = [:]
+    var prefix : [String: [String: Int]] = [:]
+    
+    var chainGen : Bool = false
     
     init (words: [String]) {
         
-      self.words = words
+        self.words = words
         
     }
     
@@ -52,22 +54,105 @@ class MarkovChain {
             
             // wipe out the suffix dictionary for next iteration, so it starts blank
             suffix = [:]
+        }
+        
+        chainGen = true
+    }
+    
+        
+        func genTweet(length: Int) -> String {
             
+            if (chainGen) {
+                
+                var Tweet : String = ""
+                
+                var currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))]     // output sentence will start with this word
+                
+                var output: String = currentWord + " "    // start the output sentence
+                var endSentence: Bool = false
+                
+                for current in 0...length {
+                    
+                    
+                    if prefix[currentWord] != nil && currentWord != " " {
+                        
+                        // Generate the random value
+                        let randomValue = Float(arc4random_uniform(1000000)) / 10000
+                       
+                        // Stores upper value of probabi lity for current suffix word
+                        var upperValue: Float = 0
+                        
+                        // iterate over all suffix words for this prefix
+                        for (potentialSuffix, count) in prefix[currentWord]! {
+                            
+                            // get total suffix words for this prefix
+                            let totalSuffixWords = prefix[currentWord]!["📐"]!
+                            
+                            // exclude the instance of the suffix that contains the suffix total
+                            if potentialSuffix != "📐" {
+                                
+                                //get upper value
+                                upperValue += Float(count) / Float( totalSuffixWords ) * 100
+                                
+                                //Check if suffix is eligible for use
+                                if (randomValue < upperValue) {
+                                    
+                                    // add the potential (now chosen) suffix to the output string
+                                    output += potentialSuffix
+                                    
+                                    // make the potential (now chosen) suffix the new prefix
+                                    currentWord = potentialSuffix
+                                    
+                                    //Check for end of sentence
+                                    if output.characters.last == "."  {
+                                        break
+                                    }
+                                    
+                                    // Add a space before the next word
+                                    output += " "
+                                    
+                                    // break the loop going over the word probabilities (since we have found a word to add)
+                                    break
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+                
+                if output.characters.last != "." {
+                    
+                    output += "."
+                    
+                }
+                Tweet = output
+                
+                return Tweet
+                
+            } else {
+              exit(0)
+            }
         }
         
         
         
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
+        
+        
+        
+        
+        
+        
+        
+        
 }
