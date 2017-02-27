@@ -30,7 +30,9 @@ class ViewController: NSViewController {
         
         for line in reader {
             
-            for word in line.components(separatedBy: " ") {
+            var separatorSet = " "
+            
+            for word in line.components(separatedBy: separatorSet) {
                 
                 sourceText.append(word)
             }
