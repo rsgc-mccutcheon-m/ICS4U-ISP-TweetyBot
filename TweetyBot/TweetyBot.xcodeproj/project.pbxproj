@@ -11,8 +11,12 @@
 		3F0868611E51F79D0050FEEC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0868601E51F79D0050FEEC /* ViewController.swift */; };
 		3F0868631E51F79D0050FEEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0868621E51F79D0050FEEC /* Assets.xcassets */; };
 		3F0868661E51F79E0050FEEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F0868641E51F79E0050FEEC /* Main.storyboard */; };
+		3F2301571E646CE10031D88E /* TweetDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2301561E646CE10031D88E /* TweetDriver.swift */; };
 		3F6B62361E5F90E900382BCA /* MarkovChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B62351E5F90E900382BCA /* MarkovChain.swift */; };
 		3F8D9F531E5E15EB0089E772 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8D9F521E5E15EB0089E772 /* FileReader.swift */; };
+		3FEF0C661E67D30000297B6C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEF0C651E67D30000297B6C /* Accounts.framework */; };
+		3FEF0C681E67D30A00297B6C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEF0C671E67D30A00297B6C /* Social.framework */; };
+		3FEF0C6A1E67D32300297B6C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEF0C691E67D32300297B6C /* Security.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +26,12 @@
 		3F0868621E51F79D0050FEEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F0868651E51F79E0050FEEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F0868671E51F79E0050FEEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F2301561E646CE10031D88E /* TweetDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDriver.swift; sourceTree = "<group>"; };
 		3F6B62351E5F90E900382BCA /* MarkovChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkovChain.swift; sourceTree = "<group>"; };
 		3F8D9F521E5E15EB0089E772 /* FileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
+		3FEF0C651E67D30000297B6C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		3FEF0C671E67D30A00297B6C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		3FEF0C691E67D32300297B6C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FEF0C6A1E67D32300297B6C /* Security.framework in Frameworks */,
+				3FEF0C681E67D30A00297B6C /* Social.framework in Frameworks */,
+				3FEF0C661E67D30000297B6C /* Accounts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +54,7 @@
 				3F08686D1E51F7CF0050FEEC /* Documentation */,
 				3F08685D1E51F79D0050FEEC /* TweetyBot */,
 				3F08685C1E51F79D0050FEEC /* Products */,
+				3FEF0C641E67D30000297B6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +72,7 @@
 				3F08685E1E51F79D0050FEEC /* AppDelegate.swift */,
 				3F6B62351E5F90E900382BCA /* MarkovChain.swift */,
 				3F0868601E51F79D0050FEEC /* ViewController.swift */,
+				3F2301561E646CE10031D88E /* TweetDriver.swift */,
 				3F8D9F521E5E15EB0089E772 /* FileReader.swift */,
 				3F0868621E51F79D0050FEEC /* Assets.xcassets */,
 				3F0868641E51F79E0050FEEC /* Main.storyboard */,
@@ -73,6 +86,16 @@
 			children = (
 			);
 			name = Documentation;
+			sourceTree = "<group>";
+		};
+		3FEF0C641E67D30000297B6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FEF0C691E67D32300297B6C /* Security.framework */,
+				3FEF0C671E67D30A00297B6C /* Social.framework */,
+				3FEF0C651E67D30000297B6C /* Accounts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2301571E646CE10031D88E /* TweetDriver.swift in Sources */,
 				3F8D9F531E5E15EB0089E772 /* FileReader.swift in Sources */,
 				3F0868611E51F79D0050FEEC /* ViewController.swift in Sources */,
 				3F08685F1E51F79D0050FEEC /* AppDelegate.swift in Sources */,
