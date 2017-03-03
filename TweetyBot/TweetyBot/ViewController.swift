@@ -8,7 +8,7 @@
 
 import Cocoa
 import SwifterMac
-
+import Accounts
 
 
 class ViewController: NSViewController {
@@ -18,8 +18,8 @@ class ViewController: NSViewController {
     
     var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
     var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
-   
-   
+    
+    dynamic var tweets : [Tweet] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,8 @@ class ViewController: NSViewController {
         var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
         
         
+        swifter.author
+        
         
         
     }
@@ -67,5 +69,12 @@ class ViewController: NSViewController {
     }
 
 
+}
+
+class Tweet: NSObject {
+    
+    var name: String!
+    var text: String!
+    
 }
 
