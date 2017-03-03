@@ -20,9 +20,13 @@ class ViewController: NSViewController {
     var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
     
     dynamic var tweets : [Tweet] = []
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //setup a failure event handler
+         let failureHandler: (Error) -> Void = { print($0.localizedDescription) }
         
         var markov : MarkovChain
         
@@ -55,8 +59,25 @@ class ViewController: NSViewController {
         
         var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
         
+        //authorize, then load up the tweets on the homepage
+        swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
+            swifter.getHomeTimeline(count: 100, success: { statuses in
+                guard let tweets = statuses.array else { return }
+                self.tweets = tweets.map {
+                    let tweet = Tweet()
+                    tweet.text = $0["text"].string!
+                    tweet.name = $0["user"]["name"].string!
+                    return tweet
+                }
+            }, failure: failureHandler)
+        }, failure: failureHandler)
         
-        swifter.author
+        for tweet in tweets {
+            
+            print(tweet.text)
+            
+        }
+        
         
         
         
