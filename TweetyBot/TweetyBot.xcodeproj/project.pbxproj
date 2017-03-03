@@ -14,6 +14,7 @@
 		3F2301571E646CE10031D88E /* TweetDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2301561E646CE10031D88E /* TweetDriver.swift */; };
 		3F6B62361E5F90E900382BCA /* MarkovChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B62351E5F90E900382BCA /* MarkovChain.swift */; };
 		3F8D9F531E5E15EB0089E772 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8D9F521E5E15EB0089E772 /* FileReader.swift */; };
+		3FE077D11E69059A00C42C3B /* SwifterMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEF0C781E67D5E200297B6C /* SwifterMac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FE077D11E69059A00C42C3B /* SwifterMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

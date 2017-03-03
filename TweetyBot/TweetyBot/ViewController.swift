@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwifterMac
 
 
 
@@ -14,6 +15,9 @@ class ViewController: NSViewController {
 
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
     var sourceText : [String] = []
+    
+    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
+    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
    
    
     
@@ -44,7 +48,14 @@ class ViewController: NSViewController {
         
         markov.genChain()
         
-        print(markov.genTweet(length: 10))
+        var tweet = markov.genTweet(length: 10)
+        
+        
+        //MARK: Twitter Connect
+        
+        var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+        
+        
         
         
     }

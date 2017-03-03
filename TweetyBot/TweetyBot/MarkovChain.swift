@@ -79,7 +79,7 @@ class MarkovChain {
                         // Generate the random value
                         let randomValue = Float(arc4random_uniform(1000000)) / 10000
                        
-                        // Stores upper value of probabi lity for current suffix word
+                        // Stores upper value of probability for current suffix word
                         var upperValue: Float = 0
                         
                         // iterate over all suffix words for this prefix
