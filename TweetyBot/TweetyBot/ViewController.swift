@@ -61,7 +61,7 @@ class ViewController: NSViewController {
         
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
-            swifter.getHomeTimeline(count: 100, success: { statuses in
+            swifter.getHomeTimeline(count: 10, success: { statuses in
                 guard let tweets = statuses.array else { return }
                 self.tweets = tweets.map {
                     let tweet = Tweet()
@@ -79,8 +79,10 @@ class ViewController: NSViewController {
         }
         
         
-        
-        
+        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
+            
+            
+        }, failure: failureHandler)
     }
 
     override var representedObject: Any? {
