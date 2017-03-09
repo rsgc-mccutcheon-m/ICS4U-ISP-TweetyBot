@@ -50,7 +50,7 @@ class ViewController: NSViewController {
         
         markov = MarkovChain(words: sourceText)
         
-        markov.genChain()
+        markov.genStndChain()
         
         var tweet = markov.genTweet(length: 10)
         
@@ -58,6 +58,7 @@ class ViewController: NSViewController {
         //MARK: Twitter Connect
         
         var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+         //let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
         
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in

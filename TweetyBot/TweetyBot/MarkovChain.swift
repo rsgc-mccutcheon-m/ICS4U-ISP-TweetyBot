@@ -22,7 +22,7 @@ class MarkovChain {
         
     }
     
-    func genChain() {
+    func genStndChain() {
         
         for (index, word) in self.words.enumerated() {
             
@@ -59,6 +59,13 @@ class MarkovChain {
         chainGen = true
     }
     
+    func gen2suffixChain() {
+        
+        for index in words.count-1{
+            
+        }
+        
+    }
         
         func genTweet(length: Int) -> String {
             
