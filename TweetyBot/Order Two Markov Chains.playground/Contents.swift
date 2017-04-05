@@ -1,13 +1,41 @@
-//
-//  MarkovChain.swift
-//  TweetyBot
-//
-//  Created by Jarvis on 2017-02-23.
-//  Copyright © 2017 Clutch Design Solutions. All rights reserved.
-//
-
 import Foundation
 
+
+class FileReader {
+    
+    let path: String
+    
+    fileprivate let file: UnsafeMutablePointer<FILE>!
+    
+    init?(path: String) {
+        self.path = path //get path from argument
+        
+        file = fopen(path, "r") //open the file in read mode
+        
+        guard file != nil else {return nil} //confirm that the file contains something
+    }
+    
+    
+    var nextLine: String? {
+        var line: UnsafeMutablePointer<CChar>? = nil
+        var linecap : Int = 0
+        defer {free(line) }
+        return getline(&line, &linecap, file) > 0 ? String(cString: line!) : nil
+    }
+    
+    deinit {
+        fclose(file)
+    }
+    
+}
+
+extension FileReader: Sequence{
+    func makeIterator() -> AnyIterator<String> {
+        return AnyIterator<String> {
+            return self.nextLine
+        }
+    }
+}
 
 class MarkovChain {
     
@@ -15,9 +43,6 @@ class MarkovChain {
     var suffix : [String : Int] = [:]
     var prefix : [String: [String: Int]] = [:]
     
-    var inputSuffix : String = ""
-    var primeIndex : Int = 0
-    var secondIndex : Int = 0
     var chainGen : Bool = false
     
     init (words: [String]) {
@@ -73,23 +98,10 @@ class MarkovChain {
                 break
             }
             
-            
-            primeIndex = words.index(after: index)
-            secondIndex = primeIndex + 1
-            if secondIndex < words.count {
-            inputSuffix = words[primeIndex] + " " + words[secondIndex]
-                
-            }
-            
-            
             // when the current word from the input array is not in the prefix dictionary at all & skip blank entries
             if self.prefix[word] == nil && word != " " {
                 
-                
-                self.suffix[inputSuffix] = 1    // add a count of 1 for the suffix (word following current word in input)
-                
-                //                let nextPosition = words.index(after: index)
-                //                let nextNextPosition = words.index(after: nextPosition)
+                self.suffix[(words[index + 1] + words[index+2])] = 1    // add a count of 1 for the suffix (word following current word in input)
                 self.suffix["📐"] = 1                // triangular ruler key represents total # of suffixs count
                 self.prefix[word] = suffix           // current word from input array becomes key in prefix dictionary with value of suffix dictionary just created
                 
@@ -99,11 +111,11 @@ class MarkovChain {
                 prefix[word]!["📐"]! += 1
                 
                 // does current word exist as a suffix already?
-                if prefix[word]![inputSuffix] == nil {         // does not exist, so create and set to 1
-                    prefix[word]![inputSuffix] = 1
+                if prefix[word]![(words[index + 1] + words[index+2])] == nil {         // does not exist, so create and set to 1
+                    prefix[word]![(words[index + 1] + words[index+2])] = 1
                     
                 } else {                                            // does exist, so increment by 1
-                    prefix[word]![inputSuffix]! += 1
+                    prefix[word]![(words[index + 1] + words[index+2])]! += 1
                 }
             }
             
@@ -156,16 +168,7 @@ class MarkovChain {
                                 output += potentialSuffix
                                 
                                 // make the potential (now chosen) suffix the new prefix
-                                var currentwords = potentialSuffix.components(separatedBy: " ")
-                                
-                                
-                                guard let currentWord = currentwords.last
-                                    else {
-                                        print("Failed to unwrap last word of \(currentwords.count) element suffix array. Suffix array contains: \(currentwords)" )
-                                        exit(0)
-                                
-                                }
-                                
+                                currentWord = potentialSuffix
                                 
                                 //Check for end of sentence
                                 if output.characters.last == "."  {
@@ -179,8 +182,13 @@ class MarkovChain {
                                 break
                             }
                         }
+                        
                     }
+                    
+     
                 }
+                
+                
             }
             
             if output.characters.last != "." {
@@ -194,20 +202,46 @@ class MarkovChain {
             return Tweet
             
         } else {
-            
             exit(0)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
+
+
+
+var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
+var sourceText : [String] = []
+
+
+
+//setup a failure event handler
+let failureHandler: (Error) -> Void = { print($0.localizedDescription) }
+
+var markov : MarkovChain
+
+// Do any additional setup after loading the view.
+
+guard let reader = FileReader(path:filePath ) else{
+    exit(0)
+}
+
+for line in reader {
+    
+    var separatorSet = " "
+    
+    for word in line.components(separatedBy: separatorSet) {
+        
+        sourceText.append(word)
+    }
+}
+
+markov = MarkovChain(words: sourceText)
+
+ markov.gen2suffixChain()
+
+markov.prefix
+
+
+
+
+
