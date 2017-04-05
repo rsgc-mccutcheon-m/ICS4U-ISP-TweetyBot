@@ -121,11 +121,22 @@ class MarkovChain {
         
         if (chainGen) {
             
+            print(" Generating Tweet now: \n")
+            
             var Tweet : String = ""
             
-            var currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))]     // output sentence will start with this word
+            var currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))] // output sentence will start with this word
+            
+           currentWord = currentWord.capitalized
+            
+            //Capitalize first letter of seed word
+            
+            print("Seed word is: \(currentWord) \n")
             
             var output: String = currentWord + " "    // start the output sentence
+            
+            print("Initial output sentence is: \(output) \n")
+            
             var endSentence: Bool = false
             
             for current in 0...length {
@@ -157,9 +168,11 @@ class MarkovChain {
                                 // add the potential (now chosen) suffix to the output string
                                 output += potentialSuffix
                                 
+                                print("Current suffix to add is: \(potentialSuffix) \n")
                                 // make the potential (now chosen) suffix the new prefix
                                 var currentwords = potentialSuffix.components(separatedBy: " ")
                                 
+                                print( "Split suffix into array for use in setting next seed word, array is: \(currentwords) \n")
                                 
                                 guard let currentWord = currentwords.last
                                     else {
@@ -168,12 +181,14 @@ class MarkovChain {
                                 
                                 }
                                 
+                                print("Current word set to: \(currentWord) \n")
                                 
                                 //Check for end of sentence
                                 if output.characters.last == "."  {
                                     break
                                 }
                                 
+                                print(output + "0")
                                 // Add a space before the next word
                                 output += " "
                                 
