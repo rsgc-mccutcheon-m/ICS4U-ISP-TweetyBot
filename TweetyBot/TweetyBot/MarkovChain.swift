@@ -113,6 +113,8 @@ class MarkovChain {
             
         }
         
+        chainGen = true
+        
     }
     
     func genTweet(length: Int) -> String {
@@ -194,7 +196,7 @@ class MarkovChain {
             return Tweet
             
         } else {
-            
+            print("No chain to generate output with")
             exit(0)
         }
     }
