@@ -69,7 +69,7 @@ class MarkovChain {
         for (index, word) in self.words.enumerated() {
             
             // Stop loop before no suffix remains
-            if index == words.count - 1 {
+            if index == words.count - 2 {
                 break
             }
             
@@ -114,6 +114,7 @@ class MarkovChain {
         }
         
         chainGen = true
+        print(words.count)
         
     }
     
@@ -127,7 +128,7 @@ class MarkovChain {
             
             var currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))] // output sentence will start with this word
             
-           currentWord = currentWord.capitalized
+           //currentWord = currentWord.capitalized
             
             //Capitalize first letter of seed word
             
@@ -141,9 +142,12 @@ class MarkovChain {
             
             for current in 0...length {
                 
+                print("IN FOR LOOP + \(prefix[currentWord] != nil) + \(currentWord != " ")")
+                print("Current word set to: \(currentWord) ")
+                print("\(prefix[currentWord]) \n")
                 
                 if prefix[currentWord] != nil && currentWord != " " {
-                    
+                    print("IF LOOP PASSED")
                     // Generate the random value
                     let randomValue = Float(arc4random_uniform(1000000)) / 10000
                     
@@ -156,11 +160,17 @@ class MarkovChain {
                         // get total suffix words for this prefix
                         let totalSuffixWords = prefix[currentWord]!["📐"]!
                         
+                        
+                        
                         // exclude the instance of the suffix that contains the suffix total
                         if potentialSuffix != "📐" {
                             
                             //get upper value
                             upperValue += Float(count) / Float( totalSuffixWords ) * 100
+                            
+                            print("upper value is: \(upperValue)")
+                            print("random value is: \(randomValue) \n")
+                
                             
                             //Check if suffix is eligible for use
                             if (randomValue < upperValue) {
@@ -168,27 +178,32 @@ class MarkovChain {
                                 // add the potential (now chosen) suffix to the output string
                                 output += potentialSuffix
                                 
-                                print("Current suffix to add is: \(potentialSuffix) \n")
+                                
+                                print("Current suffix to add is: \(potentialSuffix) ")
                                 // make the potential (now chosen) suffix the new prefix
-                                var currentwords = potentialSuffix.components(separatedBy: " ")
+                                let currentwords = potentialSuffix.components(separatedBy: " ")
                                 
-                                print( "Split suffix into array for use in setting next seed word, array is: \(currentwords) \n")
+                                print( "Split suffix into array for use in setting next seed word, array is: \(currentwords) ")
                                 
-                                guard let currentWord = currentwords.last
+                                guard let potentialCurrentWord = currentwords.last
                                     else {
                                         print("Failed to unwrap last word of \(currentwords.count) element suffix array. Suffix array contains: \(currentwords)" )
                                         exit(0)
                                 
                                 }
                                 
-                                print("Current word set to: \(currentWord) \n")
+                                print("Potential current word is: \(potentialCurrentWord)")
+                                currentWord = potentialCurrentWord
+                                
                                 
                                 //Check for end of sentence
-                                if output.characters.last == "."  {
+                                if output.characters.last == "."{
+                                    
+                                    output += " "
                                     break
                                 }
                                 
-                                print(output + "0")
+                                print(output + "0 \n \n")
                                 // Add a space before the next word
                                 output += " "
                                 
@@ -197,7 +212,12 @@ class MarkovChain {
                             }
                         }
                     }
+                } else {
+                    currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))].capitalized // output sentence will start with this word
+                    
                 }
+                
+                
             }
             
             if output.characters.last != "." {

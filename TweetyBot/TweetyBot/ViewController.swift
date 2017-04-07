@@ -56,6 +56,7 @@ class ViewController: NSViewController {
         print(markov.prefix)
         
         var tweet = markov.genTweet(length: 10)
+        print("TWEET FINISHED BUILDING")
         print(tweet)
 
         
