@@ -16,8 +16,8 @@ class ViewController: NSViewController {
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
     var sourceText : [String] = []
     
-    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
-    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
+//    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
+//    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
     
     dynamic var tweets : [Tweet] = []
    
@@ -63,8 +63,8 @@ class ViewController: NSViewController {
         
         //MARK: Twitter Connect
         
-        var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
-         //let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
+        //var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+        let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
         
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
