@@ -55,41 +55,41 @@ class ViewController: NSViewController {
         
         print(markov.prefix)
         
-        var tweet = markov.genTweet(length: 10)
+        var tweet = markov.genTweet(length: 30)
         print("TWEET FINISHED BUILDING")
         print(tweet)
 
         
         
         //MARK: Twitter Connect
-//        
-//        var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
-//         //let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
-//        
-//        //authorize, then load up the tweets on the homepage
-//        swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
-//            swifter.getHomeTimeline(count: 10, success: { statuses in
-//                guard let tweets = statuses.array else { return }
-//                self.tweets = tweets.map {
-//                    let tweet = Tweet()
-//                    tweet.text = $0["text"].string!
-//                    tweet.name = $0["user"]["name"].string!
-//                    return tweet
-//                }
-//            }, failure: failureHandler)
-//        }, failure: failureHandler)
-//        
-//        for tweet in tweets {
-//            
-//            print(tweet.text)
-//            
-//        }
-//        
-//        
-//        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
-//            
-//            
-//        }, failure: failureHandler)
+        
+        var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
+         //let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
+        
+        //authorize, then load up the tweets on the homepage
+        swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
+            swifter.getHomeTimeline(count: 10, success: { statuses in
+                guard let tweets = statuses.array else { return }
+                self.tweets = tweets.map {
+                    let tweet = Tweet()
+                    tweet.text = $0["text"].string!
+                    tweet.name = $0["user"]["name"].string!
+                    return tweet
+                }
+            }, failure: failureHandler)
+        }, failure: failureHandler)
+        
+        for tweet in tweets {
+            
+            print(tweet.text)
+            
+        }
+        
+        
+        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
+            
+            
+        }, failure: failureHandler)
     }
 
     override var representedObject: Any? {
