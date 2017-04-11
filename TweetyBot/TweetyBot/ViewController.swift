@@ -55,13 +55,13 @@ class ViewController: NSViewController {
         markov = MarkovChain(words: sourceText)
         
         //markov.genStndChain()
-        markov.gen2suffixChain()
+        //markov.gen2suffixChain()
         
-        print(markov.prefix)
+        //print(markov.prefix)
         
-        var outputTweet = markov.genTweet(length: 10)
-        print("TWEET FINISHED BUILDING")
-        print(outputTweet)
+        //var outputTweet = markov.genTweet(length: 10)
+        //print("TWEET FINISHED BUILDING")
+        //print(outputTweet)
         
         
         
@@ -72,7 +72,7 @@ class ViewController: NSViewController {
         let callBackURL = URL(string: "swifter://success")!
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: callBackURL , success: { _ in
-            swifter.getTimeline(for: "4749161120", count: 50, success: { statuses in
+            swifter.getTimeline(for: "4749161120", count: 500, trimUser: true, contributorDetails: false, includeEntities: false, success: { statuses in
                 
                 guard let tweets = statuses.array else {
                     
@@ -95,26 +95,36 @@ class ViewController: NSViewController {
                     print("failed to write tweets to text file")
                     exit(0)
                 }
-                //                do {
-                //                    print(tweets)
-                //                } catch {
-                //                    print("tweet failed")
-                //                }
-                //
-//                                self.tweets = tweets.map {
-//                                    let tweet = Tweet()
-//                                    tweet.text = $0["text"].string!
-//                                    tweet.name = $0["user"]["name"].string!
-//                                    return tweet
-//                                }
+
             }, failure: failureHandler)
             
+            //Re-extract source text
+            guard let reader = FileReader(path:self.filePath ) else{
+                exit(0)
+            }
             
-//            swifter.postTweet(status: outputTweet, success: { _ in
-//                
-//                print("successful post")
-//                
-//            }, failure: failureHandler)
+            for line in reader {
+                
+                var separatorSet = " "
+                
+                for word in line.components(separatedBy: separatorSet) {
+                    
+                    self.sourceText.append(word)
+                }
+            }
+            
+            markov.words = self.sourceText
+            markov = MarkovChain(words: self.sourceText)
+            markov.gen2suffixChain()
+            var outputTweet = markov.genTweet(length: 10)
+            print("TWEET FINISHED BUILDING")
+            print(outputTweet)
+            
+            swifter.postTweet(status: outputTweet, success: { _ in
+                
+                print("successful post")
+                
+            }, failure: failureHandler)
             
         }, failure: failureHandler)
         
