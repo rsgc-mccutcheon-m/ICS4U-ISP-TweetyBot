@@ -58,9 +58,9 @@ class ViewController: NSViewController {
         
         print(markov.prefix)
         
-        var tweet = markov.genTweet(length: 30)
+        var outputTweet = markov.genTweet(length: 10)
         print("TWEET FINISHED BUILDING")
-        print(tweet)
+        print(outputTweet)
         
         
         
@@ -79,41 +79,42 @@ class ViewController: NSViewController {
                     
                     return }
                 
-//                do {
-//                    print(tweets)
-//                } catch {
-//                    print("tweet failed")
-//                }
+                            print(tweets[0]["text"].string)
+                //                do {
+                //                    print(tweets)
+                //                } catch {
+                //                    print("tweet failed")
+                //                }
+                //
+//                                self.tweets = tweets.map {
+//                                    let tweet = Tweet()
+//                                    tweet.text = $0["text"].string!
+//                                    tweet.name = $0["user"]["name"].string!
+//                                    return tweet
+//                                }
+            }, failure: failureHandler)
+            
+            
+//            swifter.postTweet(status: outputTweet, success: { _ in
 //                
-//                self.tweets = tweets.map {
-//                    let tweet = Tweet()
-//                    tweet.text = $0["text"].string!
-//                    tweet.name = $0["user"]["name"].string!
-//                    return tweet
-//                }
-            }, failure: failureHandler)
-            
-            
-            swifter.postTweet(status: "Hello, world. This is only a test.", success: { _ in
-                
-                print("successful post")
-                
-            }, failure: failureHandler)
+//                print("successful post")
+//                
+//            }, failure: failureHandler)
             
         }, failure: failureHandler)
-    
         
         
         
-//        for tweet in tweets {
-//            do {
-//                print(tweets)
-//                print(tweet.text!)
-//            } catch {
-//                print("tweet failed")
-//                
-//            }
-//        }
+        
+        //        for tweet in tweets {
+        //            do {
+        //                print(tweets)
+        //                print(tweet.text!)
+        //            } catch {
+        //                print("tweet failed")
+        //
+        //            }
+        //        }
         
         
     }

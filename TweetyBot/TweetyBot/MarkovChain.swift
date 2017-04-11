@@ -128,8 +128,6 @@ class MarkovChain {
             
             var currentWord = self.words[Int(arc4random_uniform(UInt32(words.count)))] // output sentence will start with this word
             
-           //currentWord = currentWord.capitalized
-            
             //Capitalize first letter of seed word
             
             print("Seed word is: \(currentWord) \n")
@@ -226,7 +224,8 @@ class MarkovChain {
                 output += "."
                 
             }
-            Tweet = output
+            
+            Tweet = output.capitalizeFirst()
             
             return Tweet
             
@@ -236,15 +235,13 @@ class MarkovChain {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
+
+
+//provide a capitalize first letter method on string type variables to allow for easy tweet formating!
+extension String {
+    func capitalizeFirst() -> String {
+        let firstIndex = self.index(startIndex, offsetBy: 1)
+        return self.substring(to: firstIndex).capitalized + self.substring(from: firstIndex).lowercased()
+    }
 }
