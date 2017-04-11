@@ -26,7 +26,10 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         //setup a failure event handler
-         let failureHandler: (Error) -> Void = { print($0.localizedDescription) }
+         let failureHandler: (Error) -> Void = {
+            print($0.localizedDescription)
+            
+        }
         
         var markov : MarkovChain
         
@@ -64,10 +67,10 @@ class ViewController: NSViewController {
         //MARK: Twitter Connect
         
         //var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
-        let swifter = Swifter(consumerKey: "RErEmzj7ijDkJr60ayE2gjSHT", consumerSecret: "SbS0CHk11oJdALARa7NDik0nty4pXvAxdt7aj0R5y1gNzWaNEx")
+        let swifter = Swifter(consumerKey: "jhXUhbYXCO7t22vrswbc2JFiH", consumerSecret: "59VmHWat88kjDQHat0AlVT7MA4FpryHMR4LDwC07uyf0TZWgSr")
         
         //authorize, then load up the tweets on the homepage
-        swifter.authorize(with: URL(string: "swifter://success")!, success: { _ in
+        swifter.authorize(with: URL(string: "http://darcy.rsgc.on.ca/")!, success: { _ in
             swifter.getHomeTimeline(count: 10, success: { statuses in
                 guard let tweets = statuses.array else { return }
                 self.tweets = tweets.map {
@@ -79,17 +82,20 @@ class ViewController: NSViewController {
             }, failure: failureHandler)
         }, failure: failureHandler)
         
+//        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
+//        }, failure: failureHandler)
+        
+        
         for tweet in tweets {
-            
+            do {
             print(tweet.text)
+            } catch {
+            print("tweet failed")
             
+            }
         }
         
         
-        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
-            
-            
-        }, failure: failureHandler)
     }
 
     override var representedObject: Any? {
