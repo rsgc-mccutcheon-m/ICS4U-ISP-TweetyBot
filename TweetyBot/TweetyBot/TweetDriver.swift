@@ -19,21 +19,19 @@ class TweetDriver {
     
     var tokenKey : String
     var tokenSecret : String
-    var pullUserId : String
+    var pullUserId : String = ""
     var swifter : Swifter
     let callBackURL = URL(string: "swifter://success")!
     
     
-    init(tokenKey: String, tokenSecret: String, pullUserId: String) {
+    init(tokenKey: String, tokenSecret: String) {
         self.tokenKey = tokenKey
         self.tokenSecret = tokenSecret
-        self.pullUserId = pullUserId
         self.swifter =  Swifter(consumerKey: self.tokenKey, consumerSecret: self.tokenSecret)
         
     }
     
 
-    
     func authorizeAndPullText(sourceUserID: String, count: Int, targetFilePath: String) {
     
         var tempSourceString = ""
@@ -67,13 +65,18 @@ class TweetDriver {
         }, failure: failureHandler)
     }
     
+    
     func authorizeAndPost(post: String) {
         
+        swifter.authorize(with: callBackURL , success: { _ in
         
-        
-        
-        
-        
+            self.swifter.postTweet(status: post, success: { _ in
+                
+                print("successful post")
+                
+            }, failure: self.failureHandler)
+            
+       }, failure: failureHandler)
     }
     
     
