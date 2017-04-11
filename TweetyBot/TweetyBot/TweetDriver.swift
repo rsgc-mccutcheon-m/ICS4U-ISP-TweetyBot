@@ -31,53 +31,59 @@ class TweetDriver {
         
     }
     
-
-    func authorizeAndPullText(sourceUserID: String, count: Int, targetFilePath: String) {
     
+    func authorize(sourceUserID: String, count: Int, targetFilePath: String, postMode: Bool, post: String?) {
+        
         var tempSourceString = ""
         
         swifter.authorize(with: callBackURL , success: { _ in
-            self.swifter.getTimeline(for: sourceUserID, count: count, trimUser: true, contributorDetails: false, includeEntities: false, success: { statuses in
+            
+            if !postMode {
                 
-                guard let tweets = statuses.array else {
+                self.swifter.getTimeline(for: sourceUserID, count: count, trimUser: true, contributorDetails: false, includeEntities: false, success: { statuses in
                     
-                    print( "failed to put stati into array")
+                    guard let tweets = statuses.array else {
+                        
+                        print( "failed to put stati into array")
+                        
+                        return }
                     
-                    return }
-                
-                for tweet in tweets {
-                    
-                    //if text entry for that post isnt nil, add it to the source text file
-                    if let testStringUnwrap : String = tweet["text"].string {
-                        tempSourceString += testStringUnwrap
+                    for tweet in tweets {
+                        
+                        //if text entry for that post isnt nil, add it to the source text file
+                        if let testStringUnwrap : String = tweet["text"].string {
+                            tempSourceString += testStringUnwrap
+                        }
                     }
-                }
-                //update the source text file
-                do {
-                    try tempSourceString.write(toFile: targetFilePath, atomically: false, encoding: String.Encoding.utf8)
+                    //update the source text file
+                    do {
+                        try tempSourceString.write(toFile: targetFilePath, atomically: false, encoding: String.Encoding.utf8)
+                        
+                    } catch {
+                        print("failed to write tweets to text file")
+                        exit(0)
+                    }
                     
-                } catch {
-                    print("failed to write tweets to text file")
-                    exit(0)
-                }
+                }, failure: self.failureHandler)
                 
-            }, failure: self.failureHandler)
+            } else {
+                if let outputPost : String = post! {
+                    
+                    self.swifter.postTweet(status: outputPost, success: { _ in
+                        
+                        print("successful post")
+                        
+                    }, failure: self.failureHandler)
+                    
+                }
+            }
+            
+            
+            
         }, failure: failureHandler)
     }
     
     
-    func authorizeAndPost(post: String) {
-        
-        swifter.authorize(with: callBackURL , success: { _ in
-        
-            self.swifter.postTweet(status: post, success: { _ in
-                
-                print("successful post")
-                
-            }, failure: self.failureHandler)
-            
-       }, failure: failureHandler)
-    }
     
     
     

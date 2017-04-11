@@ -34,12 +34,12 @@ class ViewController: NSViewController {
         }
         
         var markov : MarkovChain
-        var tweetMangager : TweetDriver
+        var tweetManager : TweetDriver
         
         //setup twitter manager
-        tweetMangager = TweetDriver(tokenKey: TWITTER_TOKEN_KEY, tokenSecret: TWITTER_TOKEN_SECRET)
+        tweetManager = TweetDriver(tokenKey: TWITTER_TOKEN_KEY, tokenSecret: TWITTER_TOKEN_SECRET)
         //pull source text from specified user
-        tweetMangager.authorizeAndPullText(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath)
+        tweetManager.authorize(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath, postMode: false, post : nil)
         //setup text reader
         guard let reader = FileReader(path:filePath ) else{
             exit(0)
@@ -58,11 +58,15 @@ class ViewController: NSViewController {
         
         //setup markov chain manager
         markov = MarkovChain(words: sourceText)
-        
+        //generate probabillity model based on source text
         markov.gen2suffixChain()
         
+        var outputTweet = markov.genTweet(length: 15)
         
+        //build tweet, and post it
+        tweetManager.authorize(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath, postMode: true, post: outputTweet)
         
+
         //print(markov.prefix)
         
         //var outputTweet = markov.genTweet(length: 10)
