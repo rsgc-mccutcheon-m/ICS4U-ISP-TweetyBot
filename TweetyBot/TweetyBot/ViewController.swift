@@ -67,7 +67,7 @@ class ViewController: NSViewController {
         //MARK: Twitter Connect
         
         //var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
-        let swifter = Swifter(consumerKey: "jhXUhbYXCO7t22vrswbc2JFiH", consumerSecret: "59VmHWat88kjDQHat0AlVT7MA4FpryHMR4LDwC07uyf0TZWgSr")
+        let swifter = Swifter(consumerKey: "Wk7pfyd4vGPKS1gDVDbwxLIMU", consumerSecret: "8sTxiRpvmKg3gv4rS2YwsPbiTssnUvc8qrSzCPJgQxr1VcgIbf")
         let callBackURL = URL(string: "swifter://success")!
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: callBackURL , success: { _ in
@@ -79,34 +79,41 @@ class ViewController: NSViewController {
                     
                     return }
                 
-                do {
-                    print(tweets)
-                } catch {
-                    print("tweet failed")
-                }
-                
-                self.tweets = tweets.map {
-                    let tweet = Tweet()
-                    tweet.text = $0["text"].string!
-                    tweet.name = $0["user"]["name"].string!
-                    return tweet
-                }
+//                do {
+//                    print(tweets)
+//                } catch {
+//                    print("tweet failed")
+//                }
+//                
+//                self.tweets = tweets.map {
+//                    let tweet = Tweet()
+//                    tweet.text = $0["text"].string!
+//                    tweet.name = $0["user"]["name"].string!
+//                    return tweet
+//                }
             }, failure: failureHandler)
-        }, failure: failureHandler)
-        
-        //        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
-        //        }, failure: failureHandler)
-        
-        
-        for tweet in tweets {
-            do {
-                print(tweets)
-                print(tweet.text!)
-            } catch {
-                print("tweet failed")
+            
+            
+            swifter.postTweet(status: "Hello, world. This is only a test.", success: { _ in
                 
-            }
-        }
+                print("successful post")
+                
+            }, failure: failureHandler)
+            
+        }, failure: failureHandler)
+    
+        
+        
+        
+//        for tweet in tweets {
+//            do {
+//                print(tweets)
+//                print(tweet.text!)
+//            } catch {
+//                print("tweet failed")
+//                
+//            }
+//        }
         
         
     }

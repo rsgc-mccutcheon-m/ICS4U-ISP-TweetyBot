@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TweetyBot/ViewController.swift"
-            timestampString = "513571363.332882"
+            timestampString = "513572346.989421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -394,12 +394,12 @@
                   moduleName = "TweetyBot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/Clean%20Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/ViewController.swift"
-                  timestampString = "513571365.409606"
+                  timestampString = "513573608.349913"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "73"
                   endingLineNumber = "73"
-                  offsetFromSymbolStart = "2208">
+                  offsetFromSymbolStart = "2202">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -409,12 +409,12 @@
                   moduleName = "TweetyBot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/Clean%20Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/ViewController.swift"
-                  timestampString = "513571365.411551"
+                  timestampString = "513573608.351845"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
                   endingLineNumber = "74"
-                  offsetFromSymbolStart = "601">
+                  offsetFromSymbolStart = "598">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TweetyBot/ViewController.swift"
-            timestampString = "513571363.332882"
+            timestampString = "513572346.989421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -490,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TweetyBot/ViewController.swift"
-            timestampString = "513571363.332882"
+            timestampString = "513572346.989421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "Tweet"
             landmarkType = "3">
             <Locations>
