@@ -12,21 +12,21 @@ import Accounts
 
 
 class ViewController: NSViewController {
-
+    
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
     var sourceText : [String] = []
     
-//    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
-//    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
+    //    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
+    //    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
     
     dynamic var tweets : [Tweet] = []
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //setup a failure event handler
-         let failureHandler: (Error) -> Void = {
+        let failureHandler: (Error) -> Void = {
             print($0.localizedDescription)
             
         }
@@ -61,18 +61,30 @@ class ViewController: NSViewController {
         var tweet = markov.genTweet(length: 30)
         print("TWEET FINISHED BUILDING")
         print(tweet)
-
+        
         
         
         //MARK: Twitter Connect
         
         //var swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET)
         let swifter = Swifter(consumerKey: "jhXUhbYXCO7t22vrswbc2JFiH", consumerSecret: "59VmHWat88kjDQHat0AlVT7MA4FpryHMR4LDwC07uyf0TZWgSr")
-        
+        let callBackURL = URL(string: "swifter://success")!
         //authorize, then load up the tweets on the homepage
-        swifter.authorize(with: URL(string: "http://darcy.rsgc.on.ca/")!, success: { _ in
+        swifter.authorize(with: callBackURL , success: { _ in
             swifter.getHomeTimeline(count: 10, success: { statuses in
-                guard let tweets = statuses.array else { return }
+                
+                guard let tweets = statuses.array else {
+                    
+                    print( "failed to put stati into array")
+                    
+                    return }
+                
+                do {
+                    print(tweets)
+                } catch {
+                    print("tweet failed")
+                }
+                
                 self.tweets = tweets.map {
                     let tweet = Tweet()
                     tweet.text = $0["text"].string!
@@ -82,29 +94,30 @@ class ViewController: NSViewController {
             }, failure: failureHandler)
         }, failure: failureHandler)
         
-//        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
-//        }, failure: failureHandler)
+        //        swifter.postTweet(status: "Hello, world. This is only a test.", success: { status in
+        //        }, failure: failureHandler)
         
         
         for tweet in tweets {
             do {
-            print(tweet.text)
+                print(tweets)
+                print(tweet.text!)
             } catch {
-            print("tweet failed")
-            
+                print("tweet failed")
+                
             }
         }
         
         
     }
-
+    
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
-
-
+    
+    
 }
 
 class Tweet: NSObject {
