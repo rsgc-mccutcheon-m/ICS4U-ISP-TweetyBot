@@ -15,6 +15,7 @@ class ViewController: NSViewController {
     
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
     var sourceText : [String] = []
+    var twitGenSource : String = ""
     
     //    var TWITTER_CONSUMER_KEY = "6zPev1iQURmmrdUf717P7Ro8g"
     //    var TWITTER_CONSUMER_SECRET = "5zNYBfDAZHywOPYy27HfTQY4mIyJyi1MGSAqSpefxDBuiflhyM"
@@ -79,7 +80,21 @@ class ViewController: NSViewController {
                     
                     return }
                 
-                            print(tweets[0]["text"].string)
+                for tweet in tweets {
+                    
+                    //if text entry for that post isnt nil, add it to the source text file
+                    if let testStringUnwrap : String = tweet["text"].string {
+                       self.twitGenSource += testStringUnwrap
+                    }
+                }
+                //update the source text file
+                do {
+                    self.twitGenSource.write(toFile: self.filePath, atomically: false, encoding: String.Encoding.utf8, error: nil)
+                
+                } catch {
+                    print("failed to write tweets to text file")
+                    exit(0)
+                }
                 //                do {
                 //                    print(tweets)
                 //                } catch {
