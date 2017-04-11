@@ -84,13 +84,19 @@ class TweetBotDriver {
                 //rebuild markov chains with new full text
                 self.markov.words = self.sourceText
                 
+                print("about to generate chain")
                 //generate the chain
+                
                 self.markov.gen2suffixChain()
                 
                 //build tweet, and post it
                     
                 }, failure: self.failureHandler)
                 
+                //sleep untill chain is most definitely generated
+                while(!self.markov.chainGen) {
+                    sleep(1)
+                }
                 
                 self.swifter.postTweet(status: self.markov.genTweet(length: 15), success: { _ in
                     
