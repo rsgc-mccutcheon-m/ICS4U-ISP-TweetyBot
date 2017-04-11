@@ -20,9 +20,9 @@ class MarkovChain {
     var secondIndex : Int = 0
     var chainGen : Bool = false
     
-    init (words: [String]) {
+    init () {
         
-        self.words = words
+        //self.words = words
         
     }
     

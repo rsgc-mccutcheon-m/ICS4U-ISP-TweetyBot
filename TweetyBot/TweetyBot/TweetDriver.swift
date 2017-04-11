@@ -10,7 +10,7 @@ import Foundation
 import SwifterMac
 import Accounts
 
-class TweetDriver {
+class TweetBotDriver {
     
     let failureHandler: (Error) -> Void = {
         print($0.localizedDescription)
@@ -22,6 +22,8 @@ class TweetDriver {
     var pullUserId : String = ""
     var swifter : Swifter
     let callBackURL = URL(string: "swifter://success")!
+    var sourceText : [String] = []
+   
     
     
     init(tokenKey: String, tokenSecret: String) {
@@ -31,14 +33,14 @@ class TweetDriver {
         
     }
     
+     var markov : MarkovChain = MarkovChain()
     
-    func authorize(sourceUserID: String, count: Int, targetFilePath: String, postMode: Bool, post: String?) {
+    
+    func authorize(sourceUserID: String, count: Int, targetFilePath: String) {
         
         var tempSourceString = ""
         
-        swifter.authorize(with: callBackURL , success: { _ in
-            
-            if !postMode {
+            swifter.authorize(with: callBackURL , success: { _ in
                 
                 self.swifter.getTimeline(for: sourceUserID, count: count, trimUser: true, contributorDetails: false, includeEntities: false, success: { statuses in
                     
@@ -64,23 +66,42 @@ class TweetDriver {
                         exit(0)
                     }
                     
+                    //setup file reader
+                    guard let reader = FileReader(path: targetFilePath ) else{
+                        exit(0)
+                    }
+                    //parse source text
+                    for line in reader {
+                            
+                            var separatorSet = " "
+                            
+                            for word in line.components(separatedBy: separatorSet) {
+                                
+                                self.sourceText.append(word)
+                            }
+                    }
+                
+                //rebuild markov chains with new full text
+                self.markov.words = self.sourceText
+                
+                //generate the chain
+                self.markov.gen2suffixChain()
+                
+                //build tweet, and post it
+                    
                 }, failure: self.failureHandler)
                 
-            } else {
-                if let outputPost : String = post! {
+                
+                self.swifter.postTweet(status: self.markov.genTweet(length: 15), success: { _ in
                     
-                    self.swifter.postTweet(status: outputPost, success: { _ in
-                        
-                        print("successful post")
-                        
-                    }, failure: self.failureHandler)
+                    print("successful post")
                     
-                }
-            }
-            
-            
-            
-        }, failure: failureHandler)
+                }, failure: self.failureHandler)
+                
+                
+            }, failure: failureHandler)
+        
+        }
     }
     
     
@@ -92,4 +113,4 @@ class TweetDriver {
     
     
     
-}
+

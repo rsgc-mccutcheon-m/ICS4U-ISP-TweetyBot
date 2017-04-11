@@ -14,60 +14,36 @@ import Accounts
 class ViewController: NSViewController {
     
     var filePath : String = "/Users/student/Documents/Clean Repos/ICS4U-ISP-TweetyBot/TweetyBot/TweetyBot/sourceText.txt"
-    var sourceText : [String] = []
-    var twitGenSource : String = ""
+    //var sourceText : [String] = []
+    //var twitGenSource : String = ""
     
-    let TWITTER_TOKEN_KEY = "Wk7pfyd4vGPKS1gDVDbwxLIMU"
-    let TWITTER_TOKEN_SECRET = "8sTxiRpvmKg3gv4rS2YwsPbiTssnUvc8qrSzCPJgQxr1VcgIbf"
+    let TWITTER_CONSUMER_KEY = "44vQxA8XjbBn9RhIWyj7f1XFZ"
+    let TWITTER_CONSUMER_SECRET = "e4qaxIcmep2CxJl4dZcwoeD1nUByaz2a1Bu1u9E6X0oAYjv0b6"
     let TWITTER_SOURCE_ID = "4749161120"
     
-    dynamic var tweets : [Tweet] = []
+    //dynamic var tweets : [Tweet] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //setup a failure event handler
-        let failureHandler: (Error) -> Void = {
-            print($0.localizedDescription)
-            
-        }
+       
         
-        var markov : MarkovChain
-        var tweetManager : TweetDriver
+        var tweetBotManager : TweetBotDriver
         
         //setup twitter manager
-        tweetManager = TweetDriver(tokenKey: TWITTER_TOKEN_KEY, tokenSecret: TWITTER_TOKEN_SECRET)
-        //pull source text from specified user
-        tweetManager.authorize(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath, postMode: false, post : nil)
-        //setup text reader
-        guard let reader = FileReader(path:filePath ) else{
-            exit(0)
-        }
-
-        //parse source text into a dictionary
-        for line in reader {
-            
-            var separatorSet = " "
-            
-            for word in line.components(separatedBy: separatorSet) {
-                
-                sourceText.append(word)
-            }
-        }
+        tweetBotManager = TweetBotDriver(tokenKey: TWITTER_CONSUMER_KEY, tokenSecret: TWITTER_CONSUMER_SECRET)
         
-        //setup markov chain manager
-        markov = MarkovChain(words: sourceText)
-        //generate probabillity model based on source text
-        markov.gen2suffixChain()
+        //run the bot:
+        /*
+        - Authorize Twitter access
+        - Pull Source Text
+        - Compose Markov Chain
+        - Compose Tweet
+        - Post Tweet
+        */
+        tweetBotManager.authorize(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath)
         
-        var outputTweet = markov.genTweet(length: 15)
-        
-        //build tweet, and post it
-        tweetManager.authorize(sourceUserID: TWITTER_SOURCE_ID, count: 500, targetFilePath: filePath, postMode: true, post: outputTweet)
-        
-
-        //print(markov.prefix)
         
         //var outputTweet = markov.genTweet(length: 10)
         //print("TWEET FINISHED BUILDING")
