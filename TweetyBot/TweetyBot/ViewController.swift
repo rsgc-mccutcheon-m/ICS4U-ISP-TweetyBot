@@ -72,7 +72,7 @@ class ViewController: NSViewController {
         let callBackURL = URL(string: "swifter://success")!
         //authorize, then load up the tweets on the homepage
         swifter.authorize(with: callBackURL , success: { _ in
-            swifter.getHomeTimeline(count: 10, success: { statuses in
+            swifter.getTimeline(for: "4749161120", count: 50, success: { statuses in
                 
                 guard let tweets = statuses.array else {
                     
@@ -89,7 +89,7 @@ class ViewController: NSViewController {
                 }
                 //update the source text file
                 do {
-                    self.twitGenSource.write(toFile: self.filePath, atomically: false, encoding: String.Encoding.utf8, error: nil)
+                    try self.twitGenSource.write(toFile: self.filePath, atomically: false, encoding: String.Encoding.utf8)
                 
                 } catch {
                     print("failed to write tweets to text file")
